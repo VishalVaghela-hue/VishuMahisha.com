@@ -1,31 +1,67 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Vishu Bike Racing - Fixed</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bike Game Final</title>
 <style>
-body{margin:0;background:#111;color:white;text-align:center;font-family:Arial}
-#gameBox{width:95%;max-width:400px;height:75vh;margin:auto;background:#222;position:relative;overflow:hidden;border:3px solid red;border-radius:15px}
-.lane{position:absolute;top:0;width:4px;height:100%;background:white;left:33%}
-.lane2{left:66%}
-#bike{position:absolute;bottom:20px;left:42%;font-size:45px;z-index:10}
-.enemy{position:absolute;font-size:40px;top:-60px}
-.ctrlBtn{width:80px;height:80px;background:red;border-radius:50%;font-size:30px;border:3px solid white;margin:5px}
-#startBtn{padding:15px 40px;background:yellow;color:red;border-radius:30px;font-weight:bold;border:none;font-size:20px;margin-top:10px}
+body{margin:0;background:black;color:white;text-align:center;font-family:Arial}
+#box{width:95%;max-width:380px;height:70vh;background:#2b2b2b;margin:10px auto;border:3px solid red;position:relative;overflow:hidden;border-radius:10px}
+#bike{position:absolute;bottom:10px;left:135px;font-size:40px;z-index:5}
+.car{position:absolute;top:-50px;font-size:38px}
+button{padding:12px 20px;margin:5px;font-size:18px;border-radius:10px;border:none;font-weight:bold}
+#left{background:orange} #right{background:orange} #start{background:yellow;color:red;width:90%;margin-top:10px}
 </style>
 </head>
 <body>
-<h3>🏍️ SCORE: <span id="score">0</span></h3>
-<div id="gameBox"><div style="width:100%;height:100%;position:relative"><div class="lane"></div><div class="lane lane2"></div><div id="bike">🏍️</div><div id="road"></div></div></div>
-<button class="ctrlBtn" onclick="move(-1)">⬅️</button>
-<button class="ctrlBtn" onclick="move(1)">➡️</button>
-<br>
-<button id="startBtn" onclick="start()">▶️ START RACE</button>
+<h2>SCORE: <span id="sc">0</span></h2>
+<div id="box"><div id="bike">🏍️</div></div>
+<button id="left" onclick="goLeft()">LEFT</button>
+<button id="right" onclick="goRight()">RIGHT</button><br>
+<button id="start" onclick="startGame()">START RACE</button>
 <script>
-let bike=document.getElementById('bike'),road=document.getElementById('road'),pos=1,positions=['15%','42%','70%'],score=0,gameOn=false;
-function move(dir){pos+=dir;if(pos<0)pos=0;if(pos>2)pos=2;bike.style.left=positions[pos];}
-function start(){score=0;document.getElementById('score').innerText=0;gameOn=true;document.querySelectorAll('.enemy').forEach(e=>e.remove());alert('Ready? Race Shuru!');loop();}
-function loop(){if(!gameOn)return;if(Math.random()<0.08){let en=document.createElement('div');en.className='enemy';en.innerText=['🚗','🚕','🚙','🚌'][Math.floor(Math.random()*4)];let lane=Math.floor(Math.random()*3);en.style.left=positions[lane];road.appendChild(en);let top=-60;let id=setInterval(()=>{if(!gameOn){clearInterval(id);return;}top+=8;en.style.top=top+'px';if(top>400 && top<500 && positions[lane]==positions[pos]){gameOn=false;alert('💥 CRASH! Score:'+score);clearInterval(id);}if(top>600){en.remove();clearInterval(id);score+=10;document.getElementById('score').innerText=score;}},20);}setTimeout(loop,200);}
+var bike = document.getElementById('box').children[0];
+var box = document.getElementById('box');
+var scoreEl = document.getElementById('sc');
+var bikeX = 135;
+var score = 0;
+var playing = false;
+var cars = [];
+function goLeft(){ if(bikeX>10){bikeX-=70; bike.style.left=bikeX+'px';} }
+function goRight(){ if(bikeX<280){bikeX+=70; bike.style.left=bikeX+'px';} }
+function startGame(){
+  score=0; scoreEl.innerHTML=0; playing=true;
+  var allCars = document.querySelectorAll('.car');
+  for(var i=0;i<allCars.length;i++) allCars[i].remove();
+  cars=[];
+  run();
+}
+function run(){
+  if(!playing) return;
+  if(Math.random()<0.07){
+    var c = document.createElement('div');
+    c.className='car';
+    c.innerHTML='🚗';
+    var lanes=[20,135,250];
+    c.lane = Math.floor(Math.random()*3);
+    c.style.left=lanes[c.lane]+'px';
+    c.y=-50;
+    box.appendChild(c);
+    cars.push(c);
+  }
+  for(var i=cars.length-1;i>=0;i--){
+    cars[i].y+=6;
+    cars[i].style.top=cars[i].y+'px';
+    if(cars[i].y>350 && cars[i].y<420){
+      if(Math.abs(cars[i].y-350)<60){
+        var bx = bikeX;
+        var cx = [20,135,250][cars[i].lane];
+        if(Math.abs(bx-cx)<50){ playing=false; alert('CRASH! Score='+score); return; }
+      }
+    }
+    if(cars[i].y>500){ cars[i].remove(); cars.splice(i,1); score+=10; scoreEl.innerHTML=score; }
+  }
+  setTimeout(run,30);
+}
 </script>
 </body>
 </html>
