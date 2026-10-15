@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vishu Bike Racing</title>
+<style>
+body{margin:0;background:#111;color:white;text-align:center;font-family:Arial;overflow:hidden}
+#gameBox{width:100%;max-width:400px;height:70vh;margin:auto;background:#222;position:relative;overflow:hidden;border:3px solid red;border-radius:15px}
+#road{width:100%;height:100%;position:relative}
+.lane{position:absolute;top:0;width:4px;height:100%;background:white;left:33%}
+.lane2{left:66%}
+#bike{position:absolute;bottom:20px;left:42%;font-size:45px;transition:0.2s;z-index:10}
+.enemy{position:absolute;font-size:40px;top:-60px}
+.ctrlBtn{width:80px;height:80px;background:red;border-radius:50%;font-size:35px;border:3px solid white;color:white}
+</style>
+</head>
+<body>
+<h3>🏍️ SCORE: <span id="score">0</span></h3>
+<div id="gameBox"><div id="road"><div class="lane"></div><div class="lane lane2"></div><div id="bike">🏍️</div></div></div>
+<div style="display:flex;justify-content:center;gap:30px;margin-top:10px">
+<button class="ctrlBtn" ontouchstart="move(-1)">⬅️</button>
+<button class="ctrlBtn" ontouchstart="move(1)">➡️</button>
+</div>
+<button onclick="start()" style="margin-top:10px;padding:12px 30px;background:white;color:red;border-radius:25px;font-weight:bold;border:none;font-size:18px">▶️ START RACE</button>
+<script>
+let bike=document.getElementById('bike'),road=document.getElementById('road'),pos=1,positions=['15%','42%','70%'],score=
