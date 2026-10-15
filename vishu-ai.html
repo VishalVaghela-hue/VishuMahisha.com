@@ -3,69 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VISHU MAHISHA - Official</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800;900&display=swap" rel="stylesheet">
+<title>VISHU AI - Bharat Ka AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
-body{background:#070707;color:#fff}
-header{padding:14px 20px;background:#111;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #222;position:sticky;top:0;z-index:10}
-.logo{font-weight:900;color:#ff0040;font-size:16px}
-.badge{font-size:12px}
-.hero{background:linear-gradient(135deg,#ff0040,#ff5e00);padding:50px 20px;text-align:center}
-.hero h1{font-size:36px;font-weight:900;line-height:1.1;letter-spacing:1px}
-.hero p{margin-top:8px;font-size:13px;opacity:0.9}
-.btn{display:inline-block;margin-top:12px;padding:12px 24px;background:#fff;color:#ff0040;border-radius:30px;text-decoration:none;font-weight:700;font-size:14px;margin:6px}
-.btn-ai{background:#000;color:#fff;border:2px solid #fff}
-.btn-ai:hover{background:#fff;color:#000}
-.section{padding:30px 15px;max-width:1000px;margin:0 auto;text-align:center}
-.cards{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap}
-.card{flex:1;min-width:140px;background:#1a1a1a;border:1px solid #222;padding:18px;border-radius:16px}
-.card b{color:#ff0040}
-.shorts-wrap{background:#111;margin-top:20px;padding:20px;border-radius:20px}
-.shorts{display:flex;gap:12px;overflow-x:auto}
-.short{min-width:160px;background:#000;border-radius:12px;overflow:hidden;position:relative}
-.short img{width:100%;height:220px;object-fit:cover}
-.play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#ff0040;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center}
-.cta{background:#ff0040;padding:35px 20px;text-align:center;margin-top:20px;border-radius:20px}
+body{background:#070707;color:#fff;height:100vh;display:flex;flex-direction:column}
+header{padding:14px 20px;background:linear-gradient(90deg,#ff0040,#ff5e00);display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:900;font-size:20px}
+.badge{background:#00000066;padding:5px 12px;border-radius:20px;font-size:11px}
+.chat{flex:1;overflow-y:auto;padding:16px;max-width:800px;margin:0 auto;width:100%}
+.msg{display:flex;gap:10px;margin:14px 0}
+.avatar{width:36px;height:36px;border-radius:50%;background:#1a1a1a;border:2px solid #ff0040;display:flex;align-items:center;justify-content:center;font-weight:800;flex-shrink:0}
+.user-msg{justify-content:flex-end}
+.user-msg .bubble{background:linear-gradient(90deg,#ff0040,#ff5e00);border-radius:18px 18px 4px 18px}
+.bubble{padding:12px 16px;max-width:75%;background:#1c1c1c;border-radius:18px 18px 18px 4px;font-size:14px;line-height:1.5}
+.input-area{padding:12px;background:#111;border-top:1px solid #222;display:flex;gap:8px;max-width:800px;margin:0 auto;width:100%}
+#inp{flex:1;padding:14px 18px;border-radius:25px;border:1px solid #333;background:#1e1e1e;color:#fff;outline:none}
+#send{width:48px;height:48px;border-radius:50%;border:none;background:linear-gradient(90deg,#ff0040,#ff5e00);color:#fff;font-size:18px}
+.sug{padding:6px 12px;background:#1e1e1e;border:1px solid #333;border-radius:20px;font-size:12px;display:inline-block;margin:4px;cursor:pointer}
 </style>
 </head>
 <body>
-<header><div class="logo">VISHU MAHISHA</div><div class="badge">🔥 Official</div></header>
-
-<div class="hero">
-<h1>VISHU<br>MAHISHA</h1>
-<p>Creator | Entertainer | YouTuber from Mahudha</p>
-<br>
-<a href="https://youtube.com/@_vishal_creation_007_" class="btn">Subscribe on YouTube ▶️</a>
-<br>
-<a href="vishu-ai.html" class="btn btn-ai">🤖 Try VISHU AI - Bharat Ka AI</a>
+<header><div class="logo">VISHU AI 🤖</div><div class="badge">🔥 Official</div></header>
+<div class="chat" id="chat">
+<div class="msg"><div class="avatar">VM</div><div class="bubble">Hey! Mai hu <b>VISHU AI! 🇮🇳</b><br>Vishu Mahisha ka official AI! Bharat ka sabse tez AI! 💨<br><br>Bolo kya help chahiye?<br><br>
+<span class="sug" onclick="askS('Vishu kaun hai?')">Vishu kaun hai?</span>
+<span class="sug" onclick="askS('YouTube channel?')">YouTube?</span>
+<span class="sug" onclick="askS('Joke sunao')">Joke 😂</span>
+</div></div>
 </div>
-
-<div class="section">
-<h3>Welcome to VishuMahisha.com</h3>
-<p style="font-size:12px;opacity:0.6;margin-top:6px">Ye hai meri official website. Yahan mere saare videos, vlogs aur updates milenge.</p>
-<div class="cards">
-<div class="card"><b>🎬 My Vlogs</b><br><span style="font-size:11px">Daily life, fun aur full masti wale vlogs.</span></div>
-<div class="card"><b>🔥 Trending</b><br><span style="font-size:11px">Viral challenges aur comedy content.</span></div>
-<div class="card"><b>📸 Instagram</b><br><span style="font-size:11px">Reels aur behind the scenes.</span></div>
+<div class="input-area">
+<input id="inp" placeholder="VISHU AI se pucho...">
+<button id="send">➤</button>
 </div>
-
-<div class="shorts-wrap">
-<h3>🔥 Latest Shorts</h3><br>
-<div class="shorts">
-<div class="short"><div style="height:220px;background:linear-gradient(#333,#000)"></div><div class="play">▶</div></div>
-<div class="short"><div style="height:220px;background:linear-gradient(#333,#000)"></div><div class="play">▶</div></div>
-</div><br>
-<a href="https://youtube.com/@_vishal_creation_007_" class="btn" style="background:#ff0040;color:#fff">View All Videos</a>
-</div>
-</div>
-
-<div class="cta">
-<h2>1k+ Family Soon!</h2>
-<p style="font-size:12px">Support karo, Subscribe karo!</p><br>
-<a href="#" class="btn">Follow on Instagram</a>
-<br><br>
-<a href="vishu-ai.html" style="color:#fff;text-decoration:underline;font-size:13px">🤖 VISHU AI se baat karo - Free!</a>
-</div>
+<script>
+const chat=document.getElementById('chat'), inp=document.getElementById('inp'), send=document.getElementById('send');
+function add(t,c){let d=document.createElement('div');d.className='msg '+(c=='user'?'user-msg':'');d.innerHTML=c=='user'?`<div class="bubble">${t}</div>`:`<div class="avatar">VM</div><div class="bubble">${t}</div>`;chat.appendChild(d);chat.scrollTop=chat.scrollHeight}
+function getR(q){q=q.toLowerCase();if(q.includes('vishu')||q.includes('kaun'))return '<b>VISHU MAHISHA 🔥</b><br>Creator | YouTuber from Mahudha!<br>📺 @_vishal_creation_007_<br>1k Family Soon!';if(q.includes('youtube'))return '📺 Channel: https://youtube.com/@_vishal_creation_007_<br>Subscribe karo! 🔔';if(q.includes('joke'))return 'Pappu: ChatGPT kya hai?<br>Vishu: Jisse VISHU AI banta hai! 😂';return `Mast sawal! "${q}"<br>Abhi mai pro ban raha hu! Jaldi hi full ChatGPT jaisa jawab dunga! 🔥`;}
+async function ask(){let q=inp.value.trim();if(!q)return;add(q,'user');inp.value='';setTimeout(()=>{add(getR(q),'ai')},600);}
+function askS(t){inp.value=t;ask();}
+send.onclick=ask;inp.addEventListener('keydown',e=>{if(e.key==='Enter')ask();});
+</script>
 </body>
 </html>
