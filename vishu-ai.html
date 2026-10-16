@@ -1,6 +1,87 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>VISHU AI</title><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:sans-serif;background:#0f0f0f;color:#fff;height:100vh;display:flex;flex-direction:column}.h{background:#1a1a1a;padding:12px;text-align:center;border-bottom:1px solid #333;color:#00ff88}#c{flex:1;overflow-y:auto;padding:15px;display:flex;flex-direction:column;gap:12px}.m{max-width:85%;padding:10px 14px;border-radius:16px}.u{align-self:flex-end;background:#00ff88;color:#000}.a{align-self:flex-start;background:#2a2a2a}.i{display:flex;gap:8px;padding:12px;background:#1a1a1a}.i input{flex:1;padding:12px;border-radius:20px;border:1px solid #444;background:#2a2a2a;color:#fff;outline:none}.i button{padding:12px 18px;border-radius:20px;border:none;background:#00ff88;font-weight:bold}</style></head><body><div class="h"><h3>VISHU AI V2</h3></div><div id="c"><div class="m a">Namaste! Puchho kuch bhi 🔥</div></div><div class="i"><input id="q" placeholder="Kuch likho..." onkeydown="if(event.key==='Enter')go()"><button onclick="go()">Send</button></div><script>
-const K="AQ.Ab8RN6IMWkZ8g004zrd_GWouXTRD36kRvZUSoy2CYYeJwjbAKg";
-const C=document.getElementById('c'),Q=document.getElementById('q');
-function add(t,cl){let d=document.createElement('div');d.className='m '+cl;d.textContent=t;C.appendChild(d);C.scrollTop=C.scrollHeight;return d;}
-async function go(){let txt=Q.value.trim();if(!txt)return;add(txt,'u');Q.value='';let l=add('Soch raha hu...','a');try{let r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent',{method:'POST',headers:{'x-goog-api-key':K,'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:txt}]}]})});let j=await r.json();l.remove();if(j.error){add('Error: '+j.error.message,'a');return;}let ans=j.candidates?.[0]?.content?.parts?.[0]?.text||'No reply';add(ans,'a');}catch(e){l.remove();add('Error: '+e.message,'a');}}
-</script></body></html>
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vishu AI - Pro</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family: 'Segoe UI', sans-serif; background: #0a0a0a; color: #fff; height:100vh; display:flex; flex-direction:column;}
+header{background: linear-gradient(135deg, #667eea, #764ba2); padding:16px; text-align:center; font-size:22px; font-weight:bold; box-shadow: 0 4px 20px rgba(0,0,0,0.5);}
+#chat{flex:1; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:12px; background:#111;}
+.msg{max-width:85%; padding:12px 16px; border-radius:18px; line-height:1.5; font-size:15px; animation:pop 0.2s ease;}
+.user{align-self:flex-end; background: linear-gradient(135deg, #667eea, #764ba2); border-bottom-right-radius:4px;}
+.ai{align-self:flex-start; background:#222; border:1px solid #333; border-bottom-left-radius:4px;}
+#box{display:flex; padding:12px; gap:10px; background:#000; border-top:1px solid #222;}
+#q{flex:1; padding:14px 18px; border-radius:30px; border:1px solid #333; background:#1a1a1a; color:#fff; outline:none; font-size:16px;}
+#q:focus{border-color:#667eea}
+button{padding:14px 22px; border-radius:30px; border:none; background: linear-gradient(135deg, #667eea, #764ba2); color:#fff; font-weight:bold; cursor:pointer;}
+@keyframes pop{from{transform:scale(0.9);opacity:0} to{transform:scale(1);opacity:1}}
+.typing{opacity:0.6; font-style:italic;}
+</style>
+</head>
+<body>
+<header>✨ Vishu AI - Pro Version</header>
+<div id="chat">
+<div class="msg ai">Namaste Vishu! 🙏 Mai teri pro AI hu. Kuch bhi puchh le!</div>
+</div>
+<div id="box">
+<input id="q" placeholder="Kuch bhi puchho..." onkeydown="if(event.key==='Enter')go()">
+<button onclick="go()">Bhejo</button>
+</div>
+
+<script>
+const KEY="AQ.Ab8RNGIMWk28gO04zrd_GWooXT8036ARv2USoy2CYYeJajbAKg";
+const C=document.getElementById('chat');
+const Q=document.getElementById('q');
+
+function add(text, cls){
+  let d=document.createElement('div');
+  d.className='msg '+cls;
+  d.innerText=text;
+  C.appendChild(d);
+  C.scrollTop=C.scrollHeight;
+  return d;
+}
+
+async function go(){
+  let txt=Q.value.trim();
+  if(!txt)return;
+  add(txt,'user');
+  Q.value='';
+  let loader=add('Soch raha hu...','ai typing');
+
+  try{
+    let res=await fetch("https://api.groq.com/openai/v1/chat/completions",{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json",
+        "Authorization":"Bearer "+KEY
+      },
+      body:JSON.stringify({
+        model:"llama-3.3-70b-versatile",
+        messages:[
+          {role:"system", content:"Tu Vishu AI hai. Tu Hindi aur English mix me friendly, helpful, pro tarike se jawab deta hai. Tu Vishu ka dost hai."},
+          {role:"user", content:txt}
+        ],
+        temperature:0.7,
+        max_tokens:1000
+      })
+    });
+
+    let data=await res.json();
+    C.removeChild(loader);
+
+    if(data.choices && data.choices[0]){
+      add(data.choices[0].message.content,'ai');
+    }else{
+      add("Error: "+JSON.stringify(data),'ai');
+    }
+  }catch(e){
+    C.removeChild(loader);
+    add("Network error: "+e.message+" - API key check kar le!",'ai');
+  }
+}
+</script>
+</body>
+</html>
