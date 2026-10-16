@@ -34,8 +34,7 @@ async function go(){
  add(txt,'user'); Q.value='';
  let l=add('Soch raha hu...','ai');
  try{
-  let prompt = `Sawal: ${txt}. Jawab HINGLISH me, 2-3 line me, short me de. Lambi kahani mat likh.`;
-   let res=await fetch('https://text.pollinations.ai/'+encodeURIComponent(prompt));
+   let res=await fetch('https://text.pollinations.ai/'+encodeURIComponent(txt));
    let data=await res.text();
    C.removeChild(l);
    add(data,'ai');
