@@ -3,24 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vishu AI - No Key Needed</title>
+<title>Vishu AI - Pro</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family: 'Segoe UI', sans-serif; background: #0a0a0a; color: #fff; height:100vh; display:flex; flex-direction:column;}
-header{background: linear-gradient(135deg, #667eea, #764ba2); padding:16px; text-align:center; font-size:20px; font-weight:bold;}
-#chat{flex:1; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:12px; background:#111;}
-.msg{max-width:85%; padding:12px 16px; border-radius:18px; line-height:1.5; font-size:15px;}
-.user{align-self:flex-end; background: linear-gradient(135deg, #667eea, #764ba2); border-bottom-right-radius:4px;}
-.ai{align-self:flex-start; background:#222; border:1px solid #333; border-bottom-left-radius:4px;}
-#box{display:flex; padding:12px; gap:10px; background:#000; border-top:1px solid #222;}
-#q{flex:1; padding:14px 18px; border-radius:30px; border:1px solid #333; background:#1a1a1a; color:#fff; outline:none; font-size:16px;}
-button{padding:14px 22px; border-radius:30px; border:none; background: linear-gradient(135deg, #667eea, #764ba2); color:#fff; font-weight:bold; cursor:pointer;}
+body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff;height:100vh;display:flex;flex-direction:column}
+header{background:linear-gradient(135deg,#667eea,#764ba2);padding:16px;text-align:center;font-size:20px;font-weight:bold}
+#chat{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;background:#111}
+.msg{max-width:85%;padding:12px 16px;border-radius:18px;line-height:1.5;font-size:15px}
+.user{align-self:flex-end;background:linear-gradient(135deg,#667eea,#764ba2);border-bottom-right-radius:4px}
+.ai{align-self:flex-start;background:#222;border:1px solid #333;border-bottom-left-radius:4px}
+#box{display:flex;padding:12px;gap:10px;background:#000;border-top:1px solid #222}
+#q{flex:1;padding:14px 18px;border-radius:30px;border:1px solid #333;background:#1a1a1a;color:#fff;outline:none;font-size:16px}
+button{padding:14px 22px;border-radius:30px;border:none;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-weight:bold}
 </style>
 </head>
 <body>
-<header>✨ Vishu AI - Pro (No API Key)</header>
+<header>✨ Vishu AI - Pro</header>
 <div id="chat">
-<div class="msg ai">Namaste Vishu! 🙏 Ab mai bina API key ke chalunga - kuch bhi puchh le!</div>
+<div class="msg ai">Namaste Vishu! 🙏 Puchho kuch bhi!</div>
 </div>
 <div id="box">
 <input id="q" placeholder="Kuch bhi puchho..." onkeydown="if(event.key==='Enter')go()">
@@ -34,7 +34,8 @@ async function go(){
  add(txt,'user'); Q.value='';
  let l=add('Soch raha hu...','ai');
  try{
-   let res=await fetch('https://text.pollinations.ai/'+encodeURIComponent(txt+' - Tu Vishu AI hai, Hindi me friendly jawab de'));
+   let prompt = `Tu ek helpful dost hai. User ka sawal: ${txt}. Short, sahi jawab Hindi me de. Apna naam baar-baar mat le. Cake/baking ki kahani mat suna.`;
+   let res=await fetch('https://text.pollinations.ai/'+encodeURIComponent(prompt));
    let data=await res.text();
    C.removeChild(l);
    add(data,'ai');
