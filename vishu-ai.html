@@ -1,71 +1,51 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VISHU AI V2 - Real AI</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VISHU AI V2 - ChatGPT Style</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
-body{background:#070707;color:#fff;height:100vh;display:flex;flex-direction:column;overflow:hidden}
-header{padding:14px 20px;background:linear-gradient(90deg,#ff0040,#ff5e00);display:flex;justify-content:space-between;align-items:center}
-.logo{font-weight:900;font-size:18px}
-.chat{flex:1;overflow-y:auto;padding:16px;padding-bottom:95px}
-.msg{display:flex;gap:10px;margin:14px 0}
-.avatar{width:36px;height:36px;border-radius:50%;background:#1a1a1a;border:2px solid #ff0040;display:flex;align-items:center;justify-content:center;font-weight:800;flex-shrink:0;font-size:11px}
-.user-msg{justify-content:flex-end}
-.user-msg.bubble{background:linear-gradient(90deg,#ff0040,#ff5e00);border-radius:18px 18px 4px 18px}
-.bubble{padding:12px 16px;max-width:83%;background:#1c1c1c;border-radius:18px 18px 18px 4px;font-size:14px;line-height:1.6;white-space:pre-wrap;border:1px solid #222}
-.input-area{position:fixed;bottom:0;left:0;right:0;padding:12px;background:#111;border-top:1px solid #222;display:flex;gap:8px}
-#inp{flex:1;padding:14px 18px;border-radius:25px;border:1px solid #333;background:#1e1e1e;color:#fff;outline:none;font-size:15px}
-#send{width:48px;height:48px;border-radius:50%;border:none;background:linear-gradient(90deg,#ff0040,#ff5e00);color:#fff;font-size:18px;cursor:pointer}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:#0f0f0f;color:#fff;height:100vh;display:flex;flex-direction:column}
+.header{background:#1a1a1a;padding:15px;text-align:center;border-bottom:1px solid #333}
+.header h1{color:#00ff88}
+.chat{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:15px}
+.msg{max-width:85%;padding:12px 16px;border-radius:18px;line-height:1.5}
+.user{align-self:flex-end;background:#00ff88;color:#000;border-bottom-right-radius:4px}
+.ai{align-self:flex-start;background:#2a2a2a;border-bottom-left-radius:4px;white-space:pre-wrap}
+.input-area{display:flex;gap:10px;padding:15px;background:#1a1a1a;border-top:1px solid #333}
+.input-area input{flex:1;padding:14px 18px;border-radius:25px;border:1px solid #444;background:#2a2a2a;color:#fff;outline:none;font-size:16px}
+.input-area button{padding:14px 24px;border-radius:25px;border:none;background:#00ff88;color:#000;font-weight:bold;cursor:pointer}
+.typing{color:#888;font-style:italic}
 </style>
 </head>
 <body>
-<header><div class="logo">VISHU AI 🤖 V2 - Real AI</div><div style="font-size:10px;background:#0008;padding:4px 8px;border-radius:10px">🔥 ChatGPT</div></header>
+<div class="header"><h1>🤖 VISHU AI V2</h1><small>Powered by Gemini - ChatGPT Style</small></div>
 <div class="chat" id="chat">
-<div class="msg"><div class="avatar">VM</div><div class="bubble"><b>VISHU AI V2 🔥🇮🇳 - REAL CHATGPT IS LIVE!</b>
-
-Ab mai duniya ka koi bhi sawal bata sakta hu! Shayari, Joke, Coding sab!
-
-Bolo kya puchna hai?</div></div>
+<div class="msg ai">Namaste Vishu! 🙏 Mai VISHU AI hu - ab bilkul ChatGPT ki tarah kaam karunga! Kuch bhi pucho - shayari, coding, jokes, sab aata hai! 🔥</div>
 </div>
 <div class="input-area">
-<input id="inp" type="text" placeholder="Kuch bhi pucho...">
-<button id="send">➤</button>
+<input id="userInput" type="text" placeholder="Kuch bhi pucho..." onkeypress="if(event.key==='Enter')send()" />
+<button onclick="send()">Send 🚀</button>
 </div>
 <script>
-const API_KEY = "AQ.Ab8RN6It-MsNzB-TbDpRmbM5y1g1RWXjchcyNXJczlIPcytidA";
-const chat=document.getElementById('chat'), inp=document.getElementById('inp'), send=document.getElementById('send');
-function add(t,c){
- let d=document.createElement('div');
- d.className='msg '+(c=='user'?'user-msg':'');
- d.innerHTML=c=='user'?`<div class="bubble">${t}</div>`:`<div class="avatar">VM</div><div class="bubble">${t}</div>`;
- chat.appendChild(d);
- chat.scrollTo(0,chat.scrollHeight);
- return d;
-}
-async function askAI(q){
- const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent`;
- const body = { contents: [{ parts: [{ text: `You are VISHU AI, made by Vishu Mahisha from Mahudha. Talk in cool Hinglish, friendly, desi. User: ${q}` }] }] };
- let res = await fetch(url, {
-  method:'POST',
-  headers:{'Content-Type':'application/json','x-goog-api-key':API_KEY},
-  body: JSON.stringify(body)
- });
- let data = await res.json();
- if(data.candidates && data.candidates[0] && data.candidates[0].content) return data.candidates[0].content.parts[0].text;
- throw new Error(JSON.stringify(data).slice(0,400));
-}
-async function ask(){
- let q=inp.value.trim(); if(!q)return;
- add(q,'user'); inp.value='';
- let loading = add('VISHU AI soch raha hai... 🤔🔥','ai');
+const API_KEY = "AQ.Ab8RN6IMWkZ8g004zrd_GWouXTRD36kRvZUSoy2CYYeJwjbAKg";
+const chat = document.getElementById('chat');
+const input = document.getElementById('userInput');
+
+async function send(){
+ const text = input.value.trim();
+ if(!text) return;
+ addMsg(text, 'user');
+ input.value = '';
+ const typing = addMsg('Soch raha hu... 🤔', 'ai typing');
+ typing.id = 'typing';
  try{
-  let ans = await askAI(q); loading.remove(); add(ans,'ai');
- }catch(e){ loading.remove(); add('Error: '+e.message,'ai'); }
-}
-send.onclick=ask;
-inp.addEventListener('keydown',e=>{if(e.key==='Enter')ask();});
-</script>
-</body>
-</html>
+  const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent`, {
+   method: "POST",
+   headers: {
+    "x-goog-api-key": API_KEY,
+    "Content-Type": "application/json"
+   },
+   body: JSON.stringify({
+    contents: [{ parts: [{ text: `You are VISHU AI - friendly, helpful, desi style, ChatGPT like.
