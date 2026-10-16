@@ -1,51 +1,6 @@
-<!DOCTYPE html>
-<html lang="hi">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VISHU AI V2 - ChatGPT Style</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Segoe UI',sans-serif;background:#0f0f0f;color:#fff;height:100vh;display:flex;flex-direction:column}
-.header{background:#1a1a1a;padding:15px;text-align:center;border-bottom:1px solid #333}
-.header h1{color:#00ff88}
-.chat{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:15px}
-.msg{max-width:85%;padding:12px 16px;border-radius:18px;line-height:1.5}
-.user{align-self:flex-end;background:#00ff88;color:#000;border-bottom-right-radius:4px}
-.ai{align-self:flex-start;background:#2a2a2a;border-bottom-left-radius:4px;white-space:pre-wrap}
-.input-area{display:flex;gap:10px;padding:15px;background:#1a1a1a;border-top:1px solid #333}
-.input-area input{flex:1;padding:14px 18px;border-radius:25px;border:1px solid #444;background:#2a2a2a;color:#fff;outline:none;font-size:16px}
-.input-area button{padding:14px 24px;border-radius:25px;border:none;background:#00ff88;color:#000;font-weight:bold;cursor:pointer}
-.typing{color:#888;font-style:italic}
-</style>
-</head>
-<body>
-<div class="header"><h1>🤖 VISHU AI V2</h1><small>Powered by Gemini - ChatGPT Style</small></div>
-<div class="chat" id="chat">
-<div class="msg ai">Namaste Vishu! 🙏 Mai VISHU AI hu - ab bilkul ChatGPT ki tarah kaam karunga! Kuch bhi pucho - shayari, coding, jokes, sab aata hai! 🔥</div>
-</div>
-<div class="input-area">
-<input id="userInput" type="text" placeholder="Kuch bhi pucho..." onkeypress="if(event.key==='Enter')send()" />
-<button onclick="send()">Send 🚀</button>
-</div>
-<script>
-const API_KEY = "AQ.Ab8RN6IMWkZ8g004zrd_GWouXTRD36kRvZUSoy2CYYeJwjbAKg";
-const chat = document.getElementById('chat');
-const input = document.getElementById('userInput');
-
-async function send(){
- const text = input.value.trim();
- if(!text) return;
- addMsg(text, 'user');
- input.value = '';
- const typing = addMsg('Soch raha hu... 🤔', 'ai typing');
- typing.id = 'typing';
- try{
-  const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent`, {
-   method: "POST",
-   headers: {
-    "x-goog-api-key": API_KEY,
-    "Content-Type": "application/json"
-   },
-   body: JSON.stringify({
-    contents: [{ parts: [{ text: `You are VISHU AI - friendly, helpful, desi style, ChatGPT like.
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>VISHU AI</title><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:sans-serif;background:#0f0f0f;color:#fff;height:100vh;display:flex;flex-direction:column}.h{background:#1a1a1a;padding:12px;text-align:center;border-bottom:1px solid #333;color:#00ff88}#c{flex:1;overflow-y:auto;padding:15px;display:flex;flex-direction:column;gap:12px}.m{max-width:85%;padding:10px 14px;border-radius:16px}.u{align-self:flex-end;background:#00ff88;color:#000}.a{align-self:flex-start;background:#2a2a2a}.i{display:flex;gap:8px;padding:12px;background:#1a1a1a}.i input{flex:1;padding:12px;border-radius:20px;border:1px solid #444;background:#2a2a2a;color:#fff;outline:none}.i button{padding:12px 18px;border-radius:20px;border:none;background:#00ff88;font-weight:bold}</style></head><body><div class="h"><h3>VISHU AI V2</h3></div><div id="c"><div class="m a">Namaste! Puchho kuch bhi 🔥</div></div><div class="i"><input id="q" placeholder="Kuch likho..." onkeydown="if(event.key==='Enter')go()"><button onclick="go()">Send</button></div><script>
+const K="AQ.Ab8RN6IMWkZ8g004zrd_GWouXTRD36kRvZUSoy2CYYeJwjbAKg";
+const C=document.getElementById('c'),Q=document.getElementById('q');
+function add(t,cl){let d=document.createElement('div');d.className='m '+cl;d.textContent=t;C.appendChild(d);C.scrollTop=C.scrollHeight;return d;}
+async function go(){let txt=Q.value.trim();if(!txt)return;add(txt,'u');Q.value='';let l=add('Soch raha hu...','a');try{let r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent',{method:'POST',headers:{'x-goog-api-key':K,'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:txt}]}]})});let j=await r.json();l.remove();if(j.error){add('Error: '+j.error.message,'a');return;}let ans=j.candidates?.[0]?.content?.parts?.[0]?.text||'No reply';add(ans,'a');}catch(e){l.remove();add('Error: '+e.message,'a');}}
+</script></body></html>
